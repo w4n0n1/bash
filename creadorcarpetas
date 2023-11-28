@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Crear directorio padre
+mkdir directorio_padre
+
+# Cambiar al directorio padre
+cd directorio_padre
+
+# Crear 6 directorios hijos
+for i in {1..6}
+do
+    mkdir directorio_hijo$i
+    cd directorio_hijo$i
+    
+    # Crear 13 archivos en cada directorio hijo
+    for j in {1..13}
+    do
+        touch archivo$j.txt  # Puedes cambiar la extensión si deseas otros tipos de archivo
+        # Asignar usuario y grupo a cada archivo (ejemplo: user1 y grupo1)
+        sudo chown user$((j % 10 + 1)):grupo$((j % 10 + 1)) archivo$j.txt
+    done
+    
+    cd ..
+done
