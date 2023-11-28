@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Verifica si el usuario existe
+user_exists() {
+    if id "$1" &>/dev/null; then
+        return 0  # Usuario existe
+    else
+        return 1  # Usuario no existe
+    fi
+}
+
+# Verifica si el grupo existe
+group_exists() {
+    if getent group "$1" &>/dev/null; then
+        return 0  # Grupo existe
+    else
+        return 1  # Grupo no existe
+    fi
+}
+
+# Función para asignar usuarios a grupos
+assign_users_to_groups() {
+    local total_usuarios=45
+    local total_grupos=31
+    local usuarios_por_grupo=3
+
+    for ((grupo_num = 1; grupo_num <= total_grupos; grupo_num++))
+    do
+        local user_num=$((grupo_num * usuarios_por_grupo - usuarios_por_grupo + 1))
+        local grupo="grupo$grupo_num"
+
+        if ! group_exists "$grupo"; then
+            echo "El grupo $grupo no existe."
+            continue
+        fi
+
+        for ((i = 0; i < usuarios_por_grupo; i++))
+        do
+            local usuario="usuario$user_num"
+
+            if user_exists "$usuario"; then
+                sudo usermod -a -G "$grupo" "$usuario"
+                echo "Usuario $usuario asignado al grupo $grupo"
+            else
+                echo "El usuario $usuario no existe."
+            fi
+
+            ((user_num++))
+        done
+    done
+}
+
+# Llama a la función para asignar usuarios a grupos
+assign_users_to_groups
