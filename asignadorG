@@ -27,7 +27,7 @@ assign_users_to_groups() {
     for ((grupo_num = 1; grupo_num <= total_grupos; grupo_num++))
     do
         local user_num=$((grupo_num * usuarios_por_grupo - usuarios_por_grupo + 1))
-        local grupo="grupo$grupo_num"
+        local grupo="grupos$grupo_num"  # Modificado a "grupos"
 
         if ! group_exists "$grupo"; then
             echo "El grupo $grupo no existe."
