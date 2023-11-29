@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Crear carpeta "permiso" si no existe
+if [ ! -d "permiso" ]; then
+    mkdir permiso
+fi
+
+# Cambiar al directorio "permiso"
+cd permiso || exit
+
+# Crear 8 archivos
+touch archivo{1..8}
+
+# Asignar permisos a cada archivo
+chmod u=r-x,g=-w-,o=r-x archivo1
+chmod u=-w-,g=--x,o=rw- archivo2
+chmod u=-w-,g=rwx,o=--- archivo3
+chmod u=rwx,g=-wx,o=rw- archivo4
+chmod u=-w-,g=-wx,o=r-- archivo5
+chmod u=r-x,g=rw-,o=--x archivo6
+chmod u=-wx,g=rw-,o=r-x archivo7
+chmod u=r-x,g=rw-,o=-wx archivo8
+
+# Mostrar la lista de archivos con sus permisos
+ls -l
