@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Ingrese un número:"
+read numero
+
+sum=0
+
+for (( i=1; i<$numero; i++ ))
+do
+    if [ $(($numero % $i)) -eq 0 ]
+    then
+        sum=$(($sum + $i))
+    fi
+done
+
+if [ $sum -eq $numero ] && [ $numero -ne 1 ]
+then
+    echo "$numero es un número perfecto"
+else
+    echo "$numero no es un número perfecto"
+fi
