@@ -17,4 +17,8 @@ fi
 
 remuneracion=$(echo "scale=2; $sueldo_base + ($sueldo_base * $bono / 100)" | bc)
 
-echo "La remuneración del colaborador con una antigüedad de $antiguedad años es de $remuneracion"
+# Almacena el valor formateado en la variable sin imprimirlo
+remuneracion_formateada=$(printf "%'.3f" $(echo "$remuneracion / 1000" | bc -l))
+
+# Muestra el mensaje con la remuneración formateada
+echo "La remuneración del colaborador con una antigüedad de $antiguedad años es de \$$remuneracion_formateada"
