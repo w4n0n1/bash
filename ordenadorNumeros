@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Ingrese el primer número:"
+read num1
+echo "Ingrese el segundo número:"
+read num2
+echo "Ingrese el tercer número:"
+read num3
+
+if [ $num1 -gt $num2 ]
+then
+    temp=$num1
+    num1=$num2
+    num2=$temp
+fi
+
+if [ $num1 -gt $num3 ]
+then
+    temp=$num1
+    num1=$num3
+    num3=$temp
+fi
+
+if [ $num2 -gt $num3 ]
+then
+    temp=$num2
+    num2=$num3
+    num3=$temp
+fi
+
+echo "Los números ordenados ascendentemente son: $num1, $num2, $num3"
