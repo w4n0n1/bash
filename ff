@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Ingrese la antigüedad laboral del colaborador (en años):"
+read antiguedad
+
+sueldo_base=600000
+
+if [ $antiguedad -gt 5 ]
+then
+    bono=35
+elif [ $antiguedad -ge 3 ]
+then
+    bono=23
+else
+    bono=16
+fi
+
+remuneracion=$(echo "scale=2; $sueldo_base + ($sueldo_base * $bono / 100)" | bc)
+remuneracion_formateada=$(printf "%'.3f\n" $(echo "$remuneracion/1" | bc -l))
+
+echo "La remuneración del colaborador con una antigüedad de $antiguedad años es de \$$remuneracion_formateada"
