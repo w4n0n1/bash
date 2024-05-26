@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Instalar Docker omitir si ya esta instalado
+sudo apt install docker.io
+
+# Clonar el repositorio
+git clone https://github.com/0dayCTF/reverse-shell-generator
+
+# Moverse al directorio clonado
+cd reverse-shell-generator
+
+# Construir la imagen de Docker
+sudo docker build -t reverse_shell_generator .
+
+# Ejecutar el contenedor Docker en segundo plano, exponiendo el puerto 80
+sudo docker run -d -p 80:80 reverse_shell_generator
